@@ -11,7 +11,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     // Only connect if we have a user
     if (user) {
-      const newSocket = io('http://localhost:5000', {
+      const newSocket = io('/', {
         query: { userId: user.id, role: user.role }
       });
 

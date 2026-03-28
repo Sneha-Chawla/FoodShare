@@ -64,10 +64,18 @@ io.on('connection', (socket) => {
 
 app.locals.connectedUsers = connectedUsers; // For targeted push
 
+// Serve static React frontend files
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Send all other requests to the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = { app, io };
-// Trigger nodemon restart

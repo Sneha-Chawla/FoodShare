@@ -13,7 +13,7 @@ const VolunteerDashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/volunteer/tasks', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch('/api/volunteer/tasks', { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       setTasks(data);
     } catch (err) { console.error(err); }
@@ -21,7 +21,7 @@ const VolunteerDashboard = () => {
 
   const fetchMyTasks = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/volunteer/my-tasks', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch('/api/volunteer/my-tasks', { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       setMyTasks(Array.isArray(data) ? data : []);
     } catch (err) { console.error(err); }
@@ -49,7 +49,7 @@ const VolunteerDashboard = () => {
 
   const claimTask = async (donationId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/volunteer/tasks/${donationId}/pickup`, {
+      const res = await fetch(`/api/volunteer/tasks/${donationId}/pickup`, {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -66,7 +66,7 @@ const VolunteerDashboard = () => {
 
   const completeDelivery = async (donationId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/volunteer/tasks/${donationId}/deliver`, {
+      const res = await fetch(`/api/volunteer/tasks/${donationId}/deliver`, {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}` }
       });

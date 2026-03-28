@@ -13,7 +13,7 @@ const Certificate = () => {
     // We can fetch the donor's requests that have status 'delivered'
     const fetchDonorStats = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/requests/donor', {
+        const res = await fetch('/api/requests/donor', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {

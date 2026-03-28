@@ -17,7 +17,7 @@ const Requests = () => {
 
   const fetchAvailableDonations = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/donations');
+      const res = await fetch('/api/donations');
       const data = await res.json();
       setDonations(data);
     } catch (err) {
@@ -27,7 +27,7 @@ const Requests = () => {
 
   const fetchNGORequests = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/requests/ngo', {
+      const res = await fetch('/api/requests/ngo', {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -39,7 +39,7 @@ const Requests = () => {
 
   const fetchDonorRequests = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/requests/donor', {
+      const res = await fetch('/api/requests/donor', {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -99,7 +99,7 @@ const Requests = () => {
 
   const requestDonation = async (donationId) => {
     try {
-      const res = await fetch('http://localhost:5000/api/requests', {
+      const res = await fetch('/api/requests', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const Requests = () => {
 
   const updateRequestStatus = async (requestId, status) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/requests/${requestId}/status`, {
+      const res = await fetch(`/api/requests/${requestId}/status`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

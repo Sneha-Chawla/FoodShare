@@ -29,7 +29,7 @@ const Donate = () => {
     setStatus({ loading: true, error: '', success: '' });
 
     try {
-      const res = await fetch('http://localhost:5000/api/donations', {
+      const res = await fetch('/api/donations', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

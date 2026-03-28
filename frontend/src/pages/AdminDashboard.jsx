@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/admin/analytics', {
+        const res = await fetch('/api/admin/analytics', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {
