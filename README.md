@@ -25,3 +25,61 @@ URL:https://foodshare-2-44i3.onrender.com/
 - **Database:** [SQLite3](https://www.sqlite.org/)
 - **Authentication:** [jsonwebtoken (JWT)](https://jwt.io/) & [bcrypt](https://www.npmjs.com/package/bcrypt)
 - **Real-Time Engine:** [Socket.io](https://socket.io/)
+
+## 📁 Project Directory Structure
+```text
+FOODSHARE/
+├── backend/
+│   ├── routes/              # Express route modules (auth, donations, requests, etc.)
+│   ├── database.sqlite      # SQLite database file
+│   ├── db.js                # Database initialization & table schemas
+│   ├── server.js            # Express & Socket.io server entry point
+│   └── package.json         # Backend dependencies & scripts
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # Reusable UI components & navigation
+│   │   ├── context/         # Socket & Auth React contexts
+│   │   ├── pages/           # Views (Login, Signup, Donate, Volunteer, Admin, etc.)
+│   │   ├── App.jsx          # Router & route protections
+│   │   └── main.jsx         # React application entry
+│   ├── vite.config.js       # Vite configuration
+│   └── package.json         # Frontend dependencies & scripts
+├── package.json             # Root monorepo scripts for deployment
+└── README.md
+
+Create a `.env` file in the `backend/` directory (optional for local testing, recommended for production):
+```env
+PORT=5000
+JWT_SECRET=your_super_secret_jwt_key_here
+```
+---
+## 📡 Key API Endpoints
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Register a new user (`donor`, `ngo`, `volunteer`) | No |
+| `POST` | `/api/auth/login` | Authenticate user & receive JWT token | No |
+| `GET` | `/api/donations` | List available food donations | Optional |
+| `POST` | `/api/donations` | Post a new food donation listing | Yes |
+| `GET` | `/api/requests` | Fetch requests made for food donations | Yes |
+| `POST` | `/api/requests` | Request food allocation | Yes |
+| `PATCH`| `/api/requests/:id`| Update status (`accepted`, `picked`, `delivered`) | Yes |
+| `GET` | `/api/admin/stats` | Retrieve platform summary statistics | Yes (Admin) |
+---
+## 🌐 Production & Deployment (Render Monolith)
+This application is configured to run as a unified monolithic deployment on **Render**:
+1. Build Command:
+   ```bash
+   npm run install && npm run build
+   ```
+2. Start Command:
+   ```bash
+   npm start
+   ```
+3. The Express backend serves static production assets from `frontend/dist` and handles fallback SPA routing via Express wildcard matching:
+   ```javascript
+   app.use(express.static(path.join(__dirname, '../frontend/dist')));
+   app.get(/.*/, (req, res) => {
+     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+   });
+
+   
